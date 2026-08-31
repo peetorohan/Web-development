@@ -1,58 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Curriculum Vitae ของ Peetorohan Manor สาขา Data Science and Analysis">
-    <meta name="keywords" content="CV, resume, Peetorohan Manor, Data Science, Data Analysis">
-    <meta name="author" content="Peetorohan Manor">
-    <title>Curriculum Vitae</title>
-    
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            line-height: 1.6; 
-            margin: 40px auto; 
-            max-width: 800px;
-            color: #333;
-        }
-        h1 { color: #2b6cb0; border-bottom: 2px solid #cbd5e0; padding-bottom: 10px; }
-        h2 { color: #2d3748; margin-top: 25px; }
-        ul { margin-bottom: 20px; }
-        li { margin-bottom: 8px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Curriculum Vitae of Peetorohan Manor — Data Science and Analysis">
+<meta name="keywords" content="CV, resume, Peetorohan Manor, Data Science, Data Analysis">
+<meta name="author" content="Peetorohan Manor">
+<title>Peetorohan Manor — Curriculum Vitae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 1. Your Name -->
-    <h1>[Peetorohan Manor]</h1>
+<nav class="topnav" id="topnav">
+  <span class="topnav__mark">P.M.</span>
+  <div class="topnav__links">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#languages">Languages</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="topnav__print" id="printBtn">Save as PDF</button>
+</nav>
 
-    <!-- 2. Your Major -->
-    <h2>🎓 Major</h2>
-    <p>Data Science and Analysis</p>
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="about">
+  <svg class="hero__line" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="0,30 100,26 200,32 300,14 400,20 500,8 600,16"
+              fill="none" stroke="var(--blue)" stroke-width="1.5" opacity="0.35"/>
+  </svg>
 
-    <!-- 3. Languages you speak -->
-    <h2>🗣️ Languages</h2>
-    <ul>
-        <li>Thai (Native)</li>
-        <li>English (Conversational)</li>
-    </ul>
+  <div class="hero__grid">
+    <div class="hero__text">
+      <p class="hero__eyebrow">Curriculum&nbsp;Vitae</p>
+      <h1 class="hero__name">Peetorohan Manor</h1>
+      <p class="hero__role">Data Science &amp; Analysis</p>
 
-    <!-- 4. Programming languages you used -->
-    <h2>💻 Programming Languages</h2>
-    <ul>
-        <li>Python (Pandas for Data Analysis)</li>
-        <li>HTML & CSS</li>
-    </ul>
+      <p class="hero__summary">
+        Data science student with hands-on experience in data cleaning, exploratory analysis,
+        and technical documentation. Comfortable working across the stack from raw datasets
+        in Python to network and systems documentation.
+      </p>
 
-    <!-- 5. Projects that you have done -->
-    <h2>📂 Projects</h2>
-    <ul>
-        <li><strong>Data Analysis Project:</strong> Conducted data cleaning and storytelling using a global monthly dataset in Python (Google Colab).</li>
-        <li><strong>Network Infrastructure Design:</strong> Designed and documented a network diagram for TDS Company, including hardware specifications using Draw.io.</li>
-        <li><strong>OSI Model Presentation:</strong> Developed a multimedia presentation on the 7-layer OSI model integrating AI-generated visual aids.</li>
-    </ul>
+      <ul class="hero__contact">
+        <li><a href="mailto:your.email@example.com">your.email@example.com</a></li>
+        <li><a href="#">linkedin.com/in/peetorohan</a></li>
+        <li><a href="https://github.com/peetorohan">github.com/peetorohan</a></li>
+      </ul>
+      <p class="hero__note">แก้ไขอีเมลและลิงก์ LinkedIn ด้านบนใน <code>index.html</code> ให้เป็นของคุณ</p>
+    </div>
 
+    <div class="hero__photo">
+      <div class="hero__photo-frame">
+        <img src="assets/Profile.JPG" alt="Peetorohan Manor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="hero__photo-fallback">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <circle cx="50" cy="38" r="18" fill="var(--muted)" opacity="0.35"/>
+            <path d="M18 88c4-20 22-30 32-30s28 10 32 30" fill="var(--muted)" opacity="0.35"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
+<main>
+
+  <!-- ===================== EDUCATION ===================== -->
+  <section class="section" id="education">
+    <p class="section__tag">01</p>
+    <h2 class="section__title">Education</h2>
+
+    <article class="entry">
+      <div class="entry__head">
+        <h3>Fatoni University</h3>
+        <span class="entry__date">2567 — 2570</span>
+      </div>
+      <p class="entry__org">Data Science and Analysis (DSA)</p>
+    </article>
+  </section>
+
+  <!-- ===================== LANGUAGES ===================== -->
+  <section class="section" id="languages">
+    <p class="section__tag">02</p>
+    <h2 class="section__title">Languages</h2>
+
+    <div class="langbar">
+      <div class="langbar__row">
+        <span class="langbar__label">Thai <em>Native</em></span>
+        <div class="langbar__track"><div class="langbar__fill" data-fill="100"></div></div>
+      </div>
+      <div class="langbar__row">
+        <span class="langbar__label">Malay <em>Native</em></span>
+        <div class="langbar__track"><div class="langbar__fill" data-fill="100"></div></div>
+      </div>
+      <div class="langbar__row">
+        <span class="langbar__label">English <em>Conversational</em></span>
+        <div class="langbar__track"><div class="langbar__fill" data-fill="60"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section class="section" id="skills">
+    <p class="section__tag">03</p>
+    <h2 class="section__title">Programming Languages &amp; Tools</h2>
+
+    <div class="tags">
+      <span class="tag tag--blue">Python</span>
+      <span class="tag tag--blue">Pandas</span>
+      <span class="tag tag--amber">HTML</span>
+      <span class="tag tag--amber">CSS</span>
+      <span class="tag tag--green">Google Colab</span>
+      <span class="tag tag--green">Draw.io</span>
+    </div>
+  </section>
+
+  <!-- ===================== PROJECTS ===================== -->
+  <section class="section" id="projects">
+    <p class="section__tag">04</p>
+    <h2 class="section__title">Projects</h2>
+
+    <div class="projects">
+
+      <article class="project">
+        <div class="project__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><rect x="6" y="20" width="6" height="14" fill="var(--blue)"/><rect x="17" y="10" width="6" height="24" fill="var(--blue)"/><rect x="28" y="16" width="6" height="18" fill="var(--blue)"/></svg>
+        </div>
+        <h3>Data Analysis Project</h3>
+        <p>Conducted data cleaning and storytelling using a global monthly dataset in Python (Google Colab).</p>
+        <div class="project__tags"><span>Python</span><span>Pandas</span><span>Google Colab</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><circle cx="10" cy="10" r="4" fill="var(--amber)"/><circle cx="30" cy="10" r="4" fill="var(--amber)"/><circle cx="20" cy="30" r="4" fill="var(--amber)"/><line x1="10" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="30" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="var(--amber)" stroke-width="2"/></svg>
+        </div>
+        <h3>Network Infrastructure Design</h3>
+        <p>Designed and documented a network diagram for TDS Company, including hardware specifications using Draw.io.</p>
+        <div class="project__tags"><span>Draw.io</span><span>Network Design</span></div>
+      </article>
+
+      <article class="project">
+        <div class="project__icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><rect x="5" y="8" width="30" height="4" fill="var(--green)"/><rect x="5" y="16" width="30" height="4" fill="var(--green)"/><rect x="5" y="24" width="20" height="4" fill="var(--green)"/></svg>
+        </div>
+        <h3>OSI Model Presentation</h3>
+        <p>Developed a multimedia presentation on the 7-layer OSI model integrating AI-generated visual aids.</p>
+        <div class="project__tags"><span>Presentation</span><span>Networking</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="section section--contact" id="contact">
+    <p class="section__tag">05</p>
+    <h2 class="section__title">Get in touch</h2>
+    <p class="section__lead">Open to internships and entry-level roles in data analysis.</p>
+    <a class="cta" href="mailto:your.email@example.com">your.email@example.com</a>
+  </section>
+
+</main>
+
+<footer class="footer">© 2026 Peetorohan Manor</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

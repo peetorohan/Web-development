@@ -15,7 +15,12 @@
 
 <nav class="topnav" id="topnav">
   <span class="topnav__mark">P.M.</span>
-  <div class="topnav__links">
+
+  <button class="burger" id="burgerBtn" aria-label="เปิด/ปิดเมนู" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="topnav__links" id="navLinks">
     <a href="#about">About</a>
     <a href="#education">Education</a>
     <a href="#languages">Languages</a>
@@ -55,7 +60,7 @@
 
     <div class="hero__photo">
       <div class="hero__photo-frame">
-        <img src="assets/Profile.JPG" alt="Peetorohan Manor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <img src="assets/profile.JPG" alt="Peetorohan Manor" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="hero__photo-fallback">
           <svg viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="38" r="18" fill="var(--muted)" opacity="0.35"/>
@@ -119,40 +124,56 @@
     </div>
   </section>
 
-  <!-- ===================== PROJECTS ===================== -->
+  <!-- ===================== PROJECTS (CAROUSEL) ===================== -->
   <section class="section" id="projects">
     <p class="section__tag">04</p>
     <h2 class="section__title">Projects</h2>
 
-    <div class="projects">
+    <div class="carousel" id="projectCarousel">
+      <div class="carousel__viewport">
+        <div class="carousel__track" id="carouselTrack">
 
-      <article class="project">
-        <div class="project__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40"><rect x="6" y="20" width="6" height="14" fill="var(--blue)"/><rect x="17" y="10" width="6" height="24" fill="var(--blue)"/><rect x="28" y="16" width="6" height="18" fill="var(--blue)"/></svg>
+          <article class="project carousel__slide">
+            <div class="project__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><rect x="6" y="20" width="6" height="14" fill="var(--blue)"/><rect x="17" y="10" width="6" height="24" fill="var(--blue)"/><rect x="28" y="16" width="6" height="18" fill="var(--blue)"/></svg>
+            </div>
+            <h3>Data Analysis Project</h3>
+            <p>Conducted data cleaning and storytelling using a global monthly dataset in Python (Google Colab).</p>
+            <div class="project__tags"><span>Python</span><span>Pandas</span><span>Google Colab</span></div>
+          </article>
+
+          <article class="project carousel__slide">
+            <div class="project__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><circle cx="10" cy="10" r="4" fill="var(--amber)"/><circle cx="30" cy="10" r="4" fill="var(--amber)"/><circle cx="20" cy="30" r="4" fill="var(--amber)"/><line x1="10" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="30" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="var(--amber)" stroke-width="2"/></svg>
+            </div>
+            <h3>Network Infrastructure Design</h3>
+            <p>Designed and documented a network diagram for TDS Company, including hardware specifications using Draw.io.</p>
+            <div class="project__tags"><span>Draw.io</span><span>Network Design</span></div>
+          </article>
+
+          <article class="project carousel__slide">
+            <div class="project__icon" aria-hidden="true">
+              <svg viewBox="0 0 40 40"><rect x="5" y="8" width="30" height="4" fill="var(--green)"/><rect x="5" y="16" width="30" height="4" fill="var(--green)"/><rect x="5" y="24" width="20" height="4" fill="var(--green)"/></svg>
+            </div>
+            <h3>OSI Model Presentation</h3>
+            <p>Developed a multimedia presentation on the 7-layer OSI model integrating AI-generated visual aids.</p>
+            <div class="project__tags"><span>Presentation</span><span>Networking</span></div>
+          </article>
+
         </div>
-        <h3>Data Analysis Project</h3>
-        <p>Conducted data cleaning and storytelling using a global monthly dataset in Python (Google Colab).</p>
-        <div class="project__tags"><span>Python</span><span>Pandas</span><span>Google Colab</span></div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40"><circle cx="10" cy="10" r="4" fill="var(--amber)"/><circle cx="30" cy="10" r="4" fill="var(--amber)"/><circle cx="20" cy="30" r="4" fill="var(--amber)"/><line x1="10" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="30" y1="10" x2="20" y2="30" stroke="var(--amber)" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="var(--amber)" stroke-width="2"/></svg>
-        </div>
-        <h3>Network Infrastructure Design</h3>
-        <p>Designed and documented a network diagram for TDS Company, including hardware specifications using Draw.io.</p>
-        <div class="project__tags"><span>Draw.io</span><span>Network Design</span></div>
-      </article>
+      <button class="carousel__btn carousel__btn--prev" id="prevBtn" aria-label="โปรเจกต์ก่อนหน้า">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button class="carousel__btn carousel__btn--next" id="nextBtn" aria-label="โปรเจกต์ถัดไป">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
 
-      <article class="project">
-        <div class="project__icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40"><rect x="5" y="8" width="30" height="4" fill="var(--green)"/><rect x="5" y="16" width="30" height="4" fill="var(--green)"/><rect x="5" y="24" width="20" height="4" fill="var(--green)"/></svg>
-        </div>
-        <h3>OSI Model Presentation</h3>
-        <p>Developed a multimedia presentation on the 7-layer OSI model integrating AI-generated visual aids.</p>
-        <div class="project__tags"><span>Presentation</span><span>Networking</span></div>
-      </article>
-
+      <div class="carousel__meta">
+        <span class="carousel__count" id="carouselCount">01 / 03</span>
+        <div class="carousel__dots" id="carouselDots"></div>
+      </div>
     </div>
   </section>
 
@@ -160,13 +181,74 @@
   <section class="section section--contact" id="contact">
     <p class="section__tag">05</p>
     <h2 class="section__title">Get in touch</h2>
-    <p class="section__lead">Open to internships and entry-level roles in data analysis.</p>
-    <a class="cta" href="mailto:your.email@example.com">your.email@example.com</a>
+    <p class="section__lead">Open to internships and entry-level roles in data analysis. Send a message directly below, or email me.</p>
+    <a class="cta cta--ghost" href="mailto:yourl@gmail.com">your@gmail.com</a>
+
+    <form class="contact-form" id="contactForm" novalidate>
+
+      <div class="form-grid">
+        <div class="form-row">
+          <label for="cf-name">Full name</label>
+          <input
+            type="text" id="cf-name" name="name" required
+            placeholder="e.g. One ummah"
+            pattern="^[A-Za-zก-๙\s'.-]{2,60}$"
+            title="กรอกชื่อ 2-60 ตัวอักษร (ตัวอักษรไทย/อังกฤษ, เว้นวรรค, - . ' เท่านั้น)">
+          <span class="form-error">กรุณากรอกชื่อให้ถูกต้อง (2-60 ตัวอักษร ไม่มีตัวเลขหรือสัญลักษณ์แปลก)</span>
+        </div>
+
+        <div class="form-row">
+          <label for="cf-email">Email</label>
+          <input
+            type="email" id="cf-email" name="email" required
+            placeholder="you@gmail.com"
+            pattern="^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$"
+            title="กรอกอีเมลให้ถูกต้อง เช่น you@gmail.com">
+          <span class="form-error">กรุณากรอกอีเมลให้ถูกต้อง</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="cf-phone">Phone <em>(optional)</em></label>
+        <input
+          type="tel" id="cf-phone" name="phone"
+          placeholder="08X-XXX-XXXX"
+          pattern="^[0-9\-\s]{9,15}$"
+          title="กรอกเบอร์โทร 9-15 หลัก ใช้ตัวเลขและ - เท่านั้น">
+        <span class="form-error">รูปแบบเบอร์โทรไม่ถูกต้อง</span>
+      </div>
+
+      <div class="form-row">
+        <label for="cf-message">Message</label>
+        <textarea
+          id="cf-message" name="message" rows="4" required
+          minlength="10" maxlength="500"
+          placeholder="What would you like to say?"></textarea>
+        <span class="form-error">กรุณากรอกข้อความอย่างน้อย 10 ตัวอักษร</span>
+      </div>
+
+      <button type="submit" class="cta cta--submit">
+        <span>Send message</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+    </form>
   </section>
 
 </main>
 
-<footer class="footer">© 2026 Peetorohan Manor</footer>
+<!-- ===================== GO TO TOP ===================== -->
+<button id="toTopBtn" class="to-top" aria-label="กลับขึ้นด้านบน" title="กลับขึ้นด้านบน">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<footer class="footer">
+  <p>© <span id="year">2026</span> Peetorohan Manor</p>
+  <p class="visitor-badge">
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+    ผู้เข้าชมลำดับที่ <span id="visitorCount">—</span>
+  </p>
+</footer>
 
 <script src="script.js"></script>
 </body>

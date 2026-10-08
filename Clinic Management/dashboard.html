@@ -1,0 +1,360 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจัดการคลินิก</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --clinic-primary: #0f9d94;
+            --clinic-dark: #0a6f7a;
+            --clinic-soft: #e8f6f5;
+            --clinic-ink: #1f3b4d;
+            --clinic-accent: #ff7a8a;
+        }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: #f4f9f9;
+            color: var(--clinic-ink);
+        }
+
+        /* ---------- Navbar ---------- */
+        .navbar-clinic {
+            background: #fff;
+            border-bottom: 3px solid var(--clinic-primary);
+        }
+        .navbar-clinic .brand-icon {
+            width: 40px; height: 40px;
+            background: var(--clinic-primary);
+            color: #fff;
+            border-radius: 12px;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+        .navbar-clinic .brand-text { color: var(--clinic-dark); font-weight: 600; line-height: 1.1; }
+        .navbar-clinic .brand-text small { display: block; font-weight: 300; color: #7a97a5; font-size: .72rem; }
+        .btn-clinic {
+            background: var(--clinic-primary); color: #fff; border: 0; border-radius: 999px; padding: .45rem 1.1rem;
+        }
+        .btn-clinic:hover { background: var(--clinic-dark); color: #fff; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            background: linear-gradient(120deg, var(--clinic-dark) 0%, var(--clinic-primary) 60%, #4cc9bd 100%);
+            border-radius: 24px;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .hero::after {
+            content: ""; position: absolute; right: -80px; top: -80px;
+            width: 320px; height: 320px; border-radius: 50%;
+            background: rgba(255,255,255,.08);
+        }
+        .hero h1 { font-weight: 600; }
+        .hero p  { font-weight: 300; opacity: .92; }
+        .hero-art { max-width: 260px; width: 100%; position: relative; z-index: 1; }
+
+        /* ---------- Hero Action Buttons ---------- */
+        .hero-actions {
+            position: relative;
+            z-index: 2;
+        }
+        .btn-hero-white {
+            background: #ffffff;
+            color: var(--clinic-dark);
+            font-weight: 600;
+            border: 0;
+            border-radius: 14px;
+            padding: .6rem 1.25rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            transition: all .2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-hero-white:hover {
+            background: #f0fdfa;
+            color: var(--clinic-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+        }
+        .btn-hero-outline {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            font-weight: 500;
+            border: 1.5px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            padding: .6rem 1.25rem;
+            transition: all .2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-hero-outline:hover {
+            background: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+            border-color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* ---------- Stat cards ---------- */
+        .stat-card {
+            border: 0; border-radius: 20px; background: #fff;
+            box-shadow: 0 4px 18px rgba(15,157,148,.10);
+            transition: transform .15s;
+        }
+        .stat-card:hover { transform: translateY(-3px); }
+        .stat-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+        }
+        .stat-1 .stat-icon { background: var(--clinic-soft); color: var(--clinic-primary); }
+        .stat-2 .stat-icon { background: #e7f0ff; color: #3b82f6; }
+        .stat-3 .stat-icon { background: #ffeef0; color: var(--clinic-accent); }
+        .stat-card h2 { font-weight: 600; margin: 0; }
+        .stat-card .label { color: #7a97a5; font-size: .9rem; }
+
+        /* ---------- Table ---------- */
+        .table-card { border: 0; border-radius: 20px; box-shadow: 0 4px 18px rgba(15,157,148,.10); overflow: hidden; }
+        .table-card .card-header { background: #fff; border-bottom: 1px solid #e6f0f0; }
+        .table thead th {
+            background: var(--clinic-soft); color: var(--clinic-dark);
+            font-weight: 500; border: 0; white-space: nowrap;
+        }
+        .avatar {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--clinic-soft); color: var(--clinic-dark);
+            display: inline-flex; align-items: center; justify-content: center; font-weight: 600;
+        }
+        .badge-status { border-radius: 999px; padding: .45em .9em; font-weight: 500; }
+        .st-PENDING, .st-waiting    { background: #fff4d6; color: #8a6100; }
+        .st-CONFIRMED, .st-checking { background: #dbeafe; color: #1d4ed8; }
+        .st-CHECKED_IN              { background: #ccefe9; color: #0a6f7a; }
+        .st-COMPLETED, .st-done     { background: #d6f5dc; color: #17803d; }
+        .st-CANCELLED, .st-cancelled{ background: #ececec; color: #666; }
+        .st-NO_SHOW                 { background: #ffe0e3; color: #b42336; }
+
+        footer { color: #7a97a5; font-size: .85rem; }
+    </style>
+</head>
+<body>
+
+    <!-- ================= Navbar ================= -->
+    <nav class="navbar navbar-expand-lg navbar-clinic mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+                <span class="brand-text">Clinic Management<small>ระบบจัดการคลินิก</small></span>
+            </a>
+            <a href="/admin/" class="btn btn-clinic btn-sm" target="_blank">
+                <i class="bi bi-gear-fill me-1"></i> ระบบหลังบ้าน
+            </a>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+
+        <!-- ================= Hero ================= -->
+        <section class="hero p-4 p-md-5 mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <span class="badge rounded-pill bg-light text-dark mb-3">
+                        <i class="bi bi-calendar-heart text-danger"></i> {% now "j F Y" %}
+                    </span>
+                    <h1 class="display-6">ยินดีต้อนรับสู่คลินิกของเรา</h1>
+                    <p class="mb-4">ดูแลสุขภาพด้วยใจ จัดการคิวนัดหมายและข้อมูลคนไข้ได้ในที่เดียว</p>
+
+                    <!-- กลุ่มปุ่มลัดสำหรับกรอก Form -->
+                    <div class="hero-actions d-flex flex-wrap gap-3">
+                        <a href="{% url 'create_patient' %}" class="btn btn-hero-white">
+                            <i class="bi bi-person-plus-fill me-2 fs-5 text-primary"></i> ลงทะเบียนคนไข้ใหม่
+                        </a>
+                        <a href="{% url 'create_appointment' %}" class="btn btn-hero-outline">
+                            <i class="bi bi-calendar-plus me-2 fs-5"></i> สร้างใบนัดหมายแพทย์
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 text-center mt-4 mt-md-0">
+                    <svg class="hero-art" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Medical illustration">
+                        <circle cx="130" cy="110" r="95" fill="rgba(255,255,255,.15)"/>
+                        <rect x="55" y="50" width="150" height="120" rx="22" fill="#fff"/>
+                        <rect x="112" y="68" width="36" height="84" rx="8" fill="#0f9d94"/>
+                        <rect x="88"  y="92" width="84" height="36" rx="8" fill="#0f9d94"/>
+                        <polyline points="20,196 70,196 88,172 108,208 128,180 146,196 240,196"
+                                  fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="205" cy="48" r="14" fill="#ff7a8a"/>
+                        <path d="M205 55 l-7-7 a4 4 0 0 1 7-5 a4 4 0 0 1 7 5z" fill="#fff"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Stats (ใส่ id สำหรับ Real-time) ================= -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card stat-card stat-1">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon"><i class="bi bi-people-fill"></i></div>
+                        <div>
+                            <div class="label">จำนวนคนไข้ทั้งหมด</div>
+                            <h2><span id="live-total-patients">{{ total_patients }}</span> <small class="fs-6 fw-normal text-muted">คน</small></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card stat-2">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon"><i class="bi bi-calendar-check-fill"></i></div>
+                        <div>
+                            <div class="label">คิวนัดหมายทั้งหมด</div>
+                            <h2><span id="live-total-appointments">{{ appointments.count }}</span> <small class="fs-6 fw-normal text-muted">คิว</small></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stat-card stat-3">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stat-icon"><i class="bi bi-clock-history"></i></div>
+                        <div>
+                            <div class="label">นัดหมายวันนี้</div>
+                            <h2><span id="live-today-count">{{ today_count }}</span> <small class="fs-6 fw-normal text-muted">คิว</small></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= Appointment table ================= -->
+        <div class="card table-card">
+            <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-calendar2-week-fill text-success fs-5"></i>
+                    <h5 class="mb-0 fw-semibold" style="color: var(--clinic-dark);">ตารางคิวนัดหมาย</h5>
+                </div>
+                <a href="{% url 'create_appointment' %}" class="btn btn-sm btn-outline-success rounded-pill px-3">
+                    <i class="bi bi-plus-lg me-1"></i> เพิ่มนัดหมาย
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">คนไข้</th>
+                                <th>เบอร์โทร</th>
+                                <th>แพทย์ผู้ตรวจ</th>
+                                <th>วัน-เวลานัด</th>
+                                <th>อาการเบื้องต้น</th>
+                                <th>สถานะ</th>
+                                <th class="text-end pe-4">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <!-- ใส่ id และดึง template ย่อยมาเรนเดอร์ -->
+                        <tbody id="live-appointment-tbody">
+                            {% include "clinic/_appointment_rows.html" %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-4">
+            <i class="bi bi-heart-pulse text-success"></i> Clinic Management System &copy; {% now "Y" %}
+        </footer>
+    </div>
+
+    <!-- ================= Realtime JavaScript ================= -->
+    <script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    async function refreshDashboard() {
+        try {
+            // 1. ดึงข้อมูลตัวเลขสถิติอัปเดตการ์ด
+            const statsRes = await fetch("{% url 'dashboard_stats_api' %}");
+            if (statsRes.ok) {
+                const stats = await statsRes.json();
+                const elP = document.getElementById("live-total-patients");
+                const elA = document.getElementById("live-total-appointments");
+                const elT = document.getElementById("live-today-count");
+
+                if (elP) elP.innerText = stats.total_patients;
+                if (elA) elA.innerText = stats.total_appointments;
+                if (elT) elT.innerText = stats.today_count;
+            }
+
+            // 2. ดึงแถวตารางล่าสุดมาอัปเดต
+            const rowsRes = await fetch("{% url 'appointment_rows_api' %}");
+            if (rowsRes.ok) {
+                const rowsHtml = await rowsRes.text();
+                const tbody = document.getElementById("live-appointment-tbody");
+                if (tbody) tbody.innerHTML = rowsHtml;
+            }
+        } catch (err) {
+            console.error("Auto-refresh error:", err);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const tbody = document.getElementById("live-appointment-tbody");
+
+        // จัดการคลิกปุ่มเปลี่ยนสถานะ (เริ่มตรวจ / เสร็จสิ้น)
+        if (tbody) {
+            tbody.addEventListener("click", async (e) => {
+                const btn = e.target.closest("[data-status-btn]");
+                if (!btn) return;
+
+                const appointmentId = btn.getAttribute("data-id");
+                const nextStatus = btn.getAttribute("data-status");
+                btn.disabled = true;
+
+                try {
+                    const res = await fetch(`/api/appointments/${appointmentId}/status/`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRFToken": getCookie("csrftoken")
+                        },
+                        body: JSON.stringify({ status: nextStatus })
+                    });
+                    if (res.ok) {
+                        await refreshDashboard();
+                    } else {
+                        btn.disabled = false;
+                    }
+                } catch (err) {
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        // ตั้งเวลาดึงข้อมูลอัตโนมัติทุกๆ 3 วินาที (Polling)
+        setInterval(refreshDashboard, 3000);
+    });
+    </script>
+</body>
+</html>

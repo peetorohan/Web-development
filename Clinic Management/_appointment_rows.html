@@ -1,0 +1,41 @@
+{% for app in appointments %}
+<tr data-id="{{ app.pk }}">
+    <td class="ps-4">
+        <div class="d-flex align-items-center gap-2">
+            <span class="avatar">{{ app.patient.first_name|slice:":1" }}</span>
+            <div>
+                <div class="fw-semibold">{{ app.patient.first_name }} {{ app.patient.last_name }}</div>
+                <small class="text-muted">บัตร ••••{{ app.patient.id_card|slice:"-4:" }}</small>
+            </div>
+        </div>
+    </td>
+    <td><i class="bi bi-telephone text-muted me-1"></i>{{ app.patient.phone }}</td>
+    <td><i class="bi bi-person-badge text-muted me-1"></i>{{ app.doctor.get_full_name|default:app.doctor.username }}</td>
+    <td>
+        {{ app.appointment_date|date:"j M Y" }}
+        <span class="text-muted">({{ app.appointment_time|time:"H:i" }})</span>
+    </td>
+    <td>{{ app.symptoms|default:"-"|truncatechars:60 }}</td>
+    <td><span class="badge badge-status st-{{ app.status }}">{{ app.get_status_display }}</span></td>
+    <td class="text-end pe-4">
+        {% if app.status == "waiting" %}
+            <button type="button" class="btn btn-sm btn-act btn-act-start" data-status-btn data-id="{{ app.pk }}" data-status="checking">
+                <i class="bi bi-play-fill"></i> เริ่มตรวจ
+            </button>
+        {% elif app.status == "checking" %}
+            <button type="button" class="btn btn-sm btn-act btn-act-done" data-status-btn data-id="{{ app.pk }}" data-status="done">
+                <i class="bi bi-check2-circle"></i> เสร็จสิ้น
+            </button>
+        {% else %}
+            <span class="text-muted">—</span>
+        {% endif %}
+    </td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="7" class="text-center py-5 text-muted">
+        <i class="bi bi-calendar-x fs-1 d-block mb-2"></i>
+        ยังไม่มีข้อมูลการนัดหมายในระบบ
+    </td>
+</tr>
+{% endfor %}

@@ -1,0 +1,37 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | Clinic Management System{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+  * { box-sizing: border-box; font-family: 'Prompt', sans-serif !important; }
+  
+  /* ลบแถบหัวเดิมของ Django ที่รกตา */
+  #header, .breadcrumbs, #nav-sidebar, .nav-sidebar, #toggle-nav-sidebar {
+    display: none !important;
+  }
+  .main.shifted { margin-left: 0 !important; }
+  #container {
+    width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+  #content {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+</style>
+{% endblock %}
+
+{% block branding %}{% endblock %}
+{% block nav-global %}{% endblock %}

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียนผู้ป่วยใหม่ | ระบบคลินิก</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --clinic-primary: #0f9d94;
+            --clinic-dark: #0a6f7a;
+            --clinic-soft: #e8f6f5;
+            --clinic-ink: #1f3b4d;
+            --clinic-accent: #ff7a8a;
+        }
+        body { font-family: 'Prompt', sans-serif; background: #f4f9f9; color: var(--clinic-ink); }
+
+        /* ---------- Navbar ---------- */
+        .navbar-clinic { background: #fff; border-bottom: 3px solid var(--clinic-primary); }
+        .navbar-clinic .brand-icon {
+            width: 40px; height: 40px; background: var(--clinic-primary); color: #fff;
+            border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.3rem;
+        }
+        .navbar-clinic .brand-text { color: var(--clinic-dark); font-weight: 600; line-height: 1.1; }
+        .navbar-clinic .brand-text small { display: block; font-weight: 300; color: #7a97a5; font-size: .72rem; }
+
+        /* ---------- Form card ---------- */
+        .form-card { border: 0; border-radius: 24px; box-shadow: 0 6px 24px rgba(15,157,148,.12); overflow: hidden; }
+        .form-hero {
+            background: linear-gradient(120deg, var(--clinic-dark) 0%, var(--clinic-primary) 60%, #4cc9bd 100%);
+            color: #fff; position: relative; overflow: hidden;
+        }
+        .form-hero::after {
+            content: ""; position: absolute; right: -60px; top: -60px;
+            width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,.09);
+        }
+        .form-hero .hero-icon {
+            width: 52px; height: 52px; border-radius: 16px; background: rgba(255,255,255,.2);
+            display: inline-flex; align-items: center; justify-content: center; font-size: 1.6rem;
+        }
+        .form-hero small { opacity: .9; font-weight: 300; }
+
+        .section-title {
+            display: flex; align-items: center; gap: .5rem;
+            color: var(--clinic-dark); font-weight: 600; font-size: 1rem;
+            padding-bottom: .5rem; margin: .5rem 0 1rem; border-bottom: 2px solid var(--clinic-soft);
+        }
+        .section-title i { color: var(--clinic-primary); }
+
+        /* ---------- Fields ---------- */
+        .form-label { font-weight: 500; color: var(--clinic-dark); font-size: .92rem; margin-bottom: .35rem; }
+        .form-label i { color: var(--clinic-primary); margin-right: .25rem; }
+
+        .clinic-form input:not([type=checkbox]):not([type=radio]):not([type=hidden]),
+        .clinic-form select,
+        .clinic-form textarea {
+            display: block; width: 100%;
+            padding: .65rem .95rem;
+            font: inherit; color: var(--clinic-ink);
+            background-color: #fff;
+            border: 1px solid #cfe3e2; border-radius: 12px;
+            transition: border-color .15s, box-shadow .15s;
+        }
+        .clinic-form textarea { min-height: 100px; resize: vertical; }
+        .clinic-form input:focus, .clinic-form select:focus, .clinic-form textarea:focus {
+            outline: 0; border-color: var(--clinic-primary); box-shadow: 0 0 0 .22rem rgba(15,157,148,.18);
+        }
+        .field-error { color: #b42336; font-size: .85rem; margin-top: .3rem; }
+        .field-error i { margin-right: .25rem; }
+        .help-text { color: #7a97a5; font-size: .8rem; margin-top: .25rem; }
+
+        /* กล่องเตือนประวัติแพ้ยา */
+        .allergy-box { background: #fff5f6; border: 1px solid #ffd5da; border-radius: 16px; padding: 1rem 1.1rem; }
+        .allergy-box .form-label { color: #b42336; }
+        .allergy-box .form-label i { color: #e0475b; }
+        .allergy-box textarea { border-color: #ffc4cb !important; }
+        .allergy-box textarea:focus { border-color: #e0475b !important; box-shadow: 0 0 0 .22rem rgba(224,71,91,.15) !important; }
+
+        /* ---------- Buttons ---------- */
+        .btn-clinic { background: var(--clinic-primary); color: #fff; border: 0; border-radius: 999px; padding: .6rem 1.6rem; font-weight: 500; }
+        .btn-clinic:hover { background: var(--clinic-dark); color: #fff; }
+        .btn-back { border: 1px solid #cfe3e2; color: var(--clinic-dark); border-radius: 999px; padding: .6rem 1.4rem; background: #fff; }
+        .btn-back:hover { background: var(--clinic-soft); color: var(--clinic-dark); }
+
+        .privacy-note { background: var(--clinic-soft); border-radius: 12px; color: var(--clinic-dark); font-size: .85rem; padding: .7rem 1rem; }
+        footer { color: #7a97a5; font-size: .85rem; }
+    </style>
+</head>
+<body>
+
+    <!-- ================= Navbar ================= -->
+    <nav class="navbar navbar-expand-lg navbar-clinic mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'dashboard' %}">
+                <span class="brand-icon"><i class="bi bi-heart-pulse-fill"></i></span>
+                <span class="brand-text">Clinic Management<small>ระบบจัดการคลินิก</small></span>
+            </a>
+            <a href="{% url 'dashboard' %}" class="btn btn-back btn-sm">
+                <i class="bi bi-house-door-fill me-1"></i> หน้าแรก
+            </a>
+        </div>
+    </nav>
+
+    <div class="container pb-5" style="max-width: 760px;">
+        <div class="card form-card">
+
+            <!-- ---------- หัวฟอร์ม ---------- -->
+            <div class="form-hero px-4 py-4">
+                <div class="d-flex align-items-center gap-3 position-relative" style="z-index:1;">
+                    <span class="hero-icon"><i class="bi bi-person-vcard-fill"></i></span>
+                    <div>
+                        <h4 class="mb-0 fw-semibold">ลงทะเบียนผู้ป่วยใหม่ (OPD Card)</h4>
+                        <small>กรุณากรอกข้อมูลส่วนบุคคลและประวัติสุขภาพเบื้องต้น</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4 p-md-5 bg-white">
+                <form method="POST" class="clinic-form" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger rounded-3">
+                        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                        {% for e in form.non_field_errors %}{{ e }}{% if not forloop.last %}<br>{% endif %}{% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- ===== ข้อมูลส่วนบุคคล ===== -->
+                    <div class="section-title"><i class="bi bi-person-lines-fill"></i> ข้อมูลส่วนบุคคล</div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label" for="{{ form.first_name.id_for_label }}">
+                                <i class="bi bi-person-fill"></i>ชื่อจริง <span class="text-danger">*</span>
+                            </label>
+                            {{ form.first_name }}
+                            {% for e in form.first_name.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="{{ form.last_name.id_for_label }}">
+                                <i class="bi bi-person"></i>นามสกุล <span class="text-danger">*</span>
+                            </label>
+                            {{ form.last_name }}
+                            {% for e in form.last_name.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label" for="{{ form.id_card.id_for_label }}">
+                                <i class="bi bi-credit-card-2-front-fill"></i>เลขบัตรประจำตัวประชาชน <span class="text-danger">*</span>
+                            </label>
+                            {{ form.id_card }}
+                            <div class="help-text">ตัวเลข 13 หลัก ไม่ต้องใส่เครื่องหมายขีด</div>
+                            {% for e in form.id_card.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="{{ form.phone.id_for_label }}">
+                                <i class="bi bi-telephone-fill"></i>เบอร์โทรศัพท์ติดต่อ <span class="text-danger">*</span>
+                            </label>
+                            {{ form.phone }}
+                            {% for e in form.phone.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- ===== ข้อมูลสุขภาพ ===== -->
+                    <div class="section-title"><i class="bi bi-heart-pulse-fill"></i> ข้อมูลสุขภาพเบื้องต้น</div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="{{ form.blood_group.id_for_label }}">
+                                <i class="bi bi-droplet-fill"></i>หมู่เลือด
+                            </label>
+                            {{ form.blood_group }}
+                            {% for e in form.blood_group.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                        </div>
+
+                        <div class="col-12">
+                            <div class="allergy-box">
+                                <label class="form-label" for="{{ form.allergies.id_for_label }}">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>ประวัติการแพ้ยา / แพ้อาหาร
+                                </label>
+                                {{ form.allergies }}
+                                <div class="help-text">ระบุชื่อยา/อาหารที่แพ้ และอาการที่เกิดขึ้น ถ้าไม่มีให้เว้นว่าง</div>
+                                {% for e in form.allergies.errors %}<div class="field-error"><i class="bi bi-exclamation-circle"></i>{{ e }}</div>{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="privacy-note mt-4">
+                        <i class="bi bi-shield-lock-fill me-1"></i>
+                        ข้อมูลเวชระเบียนเป็นข้อมูลส่วนบุคคลที่อ่อนไหว ใช้เพื่อการรักษาพยาบาลเท่านั้น
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top">
+                        <a href="{% url 'dashboard' %}" class="btn btn-back">
+                            <i class="bi bi-arrow-left me-1"></i> ย้อนกลับ
+                        </a>
+                        <button type="submit" class="btn btn-clinic">
+                            <i class="bi bi-person-check-fill me-1"></i> บันทึกข้อมูลผู้ป่วย
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer class="text-center mt-4">
+            <i class="bi bi-heart-pulse text-success"></i> Clinic Management System &copy; {% now "Y" %}
+        </footer>
+    </div>
+
+    <script>
+        // เลขบัตรประชาชน/เบอร์โทร: รับเฉพาะตัวเลข
+        (function () {
+            function digitsOnly(id, max) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                el.setAttribute("inputmode", "numeric");
+                if (max) el.setAttribute("maxlength", max);
+                el.addEventListener("input", function () { el.value = el.value.replace(/\D/g, ""); });
+            }
+            digitsOnly("{{ form.id_card.id_for_label }}", 13);
+            digitsOnly("{{ form.phone.id_for_label }}", 10);
+        })();
+    </script>
+</body>
+</html>
